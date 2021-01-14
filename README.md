@@ -211,13 +211,31 @@ Response body:
 
 ## Backlog
 ### Done
-- [data-service] Create endpoints to save JSON entity sides ([#1][i1])
-- [business-service] Create endpoints to compare JSON entity sides ([#2][i2])
-- [facade-service] Create endpoints to save and compare JSON entity sides ([#3][i3])
+- ~~[data-service] Create endpoints to save JSON entity sides ([#1][i1])~~
+- ~~[business-service] Create endpoints to compare JSON entity sides ([#2][i2])~~
+- ~~[facade-service] Create endpoints to save and compare JSON entity sides ([#3][i3])~~
+- ~~[all] README file documentation ([#12][i12])~~
+
 
 ### Improvements (Nice to haves)
-- [all] Add jacoco plugin to generate report for SonarCloud analyzes([#9][i9])
-
+- ~~[all] Add jacoco plugin to generate report for SonarCloud analyzes([#9][i9])~~
+- ~~[all] Add Tracis CI and SonarCloud integration with repository([#7][i7])~~
+- [all] Create E2E Tests
+- [facade-service] Add Exception handler using a ControllerAdvice implementation
+- [business-service] Add Exception handler using a ControllerAdvice implementation
+- [all] Generate Docker images for all modules during build execution
+- [data-service] Add validation to accept request body only with Base64 encrypted value
+- [facade-service] Add validation to accept request body only with Base64 encrypted value
+- [data-service] Create Data tier API v2 with idempotent endpoints
+- [all] Add Spring Cloud integration (Eureka, Config service)
+- [all] Create performance test script in Gatling for all service layers 
+- [facade-service] Add Circuit Breaker
+- [business-service] Add Circuit Breaker
+- [facade-service] Add Circuit Breaker
+- [all] Provide metrics actuator endpoint for Prometheus
+- [business-service] Use Spring Relaxed Binding to inject microservice properties
+- [facade-service] Use Spring Relaxed Binding to inject microservice properties
+- [all] Create HELM k8s templates including all modules
 
 [sonar-url]:https://sonarcloud.io/dashboard?id=com.thiagoteixeira%3Ajson-diff-service-parent&nocache
 [sonar-quality-gate]: https://sonarcloud.io/api/project_badges/measure?project=com.thiagoteixeira%3Ajson-diff-service-parent&metric=alert_status
@@ -230,4 +248,6 @@ Response body:
 [i1]: https://github.com/thiagoteixeira/json-diff-service/issues/1
 [i2]: https://github.com/thiagoteixeira/json-diff-service/issues/2
 [i3]: https://github.com/thiagoteixeira/json-diff-service/issues/3
+[i7]: https://github.com/thiagoteixeira/json-diff-service/issues/7
 [i9]: https://github.com/thiagoteixeira/json-diff-service/issues/9
+[i12]: https://github.com/thiagoteixeira/json-diff-service/issues/12
