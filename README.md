@@ -33,7 +33,9 @@ This represents a facade microservice that will orchestrate calls to the Busines
 
 ### POST {facade-host}/v1/diff/{id}/left
 
-Example: http://localhost:8080/v1/diff/1/left
+Behavior: It calls diff-data-service to create or update a JSON entity setting the left value.
+
+Request:
 ```
 curl --location --request POST 'localhost:8080/v1/diff/1/left' \
 --header 'Content-Type: application/json' \
@@ -54,7 +56,9 @@ The response body will be like that:
 
 ### POST {facade-host}/v1/diff/{id}/right
 
-Example: http://localhost:8080/v1/diff/1/right
+Behavior: It calls diff-data-service to create or update a JSON entity setting the right value.
+
+Request:
 ```
 curl --location --request POST 'localhost:8080/v1/diff/1/right' \
 --header 'Content-Type: application/json' \
@@ -75,7 +79,9 @@ The response body will be like that:
 
 ### GET {facade-host}/v1/diff/{id}
 
-Example: http://localhost:8080/v1/diff/1
+Behavior: It calls the diff-business-service to get the comparison from both sides from an existent JSON entity.
+
+Request:
 ```
 curl --location --request GET 'localhost:8080/v1/diff/22' \
 --header 'traceId: test-thiago-teixeira-01' \
@@ -96,7 +102,7 @@ Note: result when both sides are equal!
 | `Sides are equal`      |    `The JSON contents are equal!` |200 OK||
 | `Sides have not the same size`      |    `The JSON contents have not the same size!` |200 OK||
 | `Sides have the same size, but different bytes`  |    `The JSON contents have the same size, but offsets are different: 19` | 200 OK | In this case, 19 is the only different position|
-| The {id} path variable is not found in json-diff-data microservice |  | 404 Not Found ||
+| The {id} path variable is not found in json-diff-data microservice |  | 404 Not Found |
 
 ##### 'pt' (PORTUGUESE)
 | When      | Message in response body will be | HTTP Status Code | Note |
@@ -118,7 +124,9 @@ Note: result when both sides are equal!
 
 ### GET {business-host}/v1/diff/{id}
 
-Example: http://localhost:8081/v1/diff/1
+Behavior: It compares both sides from an existent JSON entity.
+
+Request:
 ```
 curl --location --request GET 'localhost:8081/v1/diff/1' \
 --header 'traceId: test-thiago-teixeira-01'
@@ -140,7 +148,9 @@ Response body:
 
 ### POST {data-host}/v1/diff/{id}/left
 
-Example: http://localhost:8082/v1/diff/1/left
+Behavior: It creates or update a JSON entity setting the left value.
+
+Request:
 ```
 curl --location --request POST 'localhost:8082/v1/diff/1/left' \
 --header 'Content-Type: application/json' \
@@ -161,7 +171,9 @@ The response body will be like that:
 
 ### POST {data-host}/v1/diff/{id}/right
 
-Example: http://localhost:8082/v1/diff/1/right
+Behavior: It creates or update a JSON entity setting the right value.
+
+Request:
 ```
 curl --location --request POST 'localhost:8082/v1/diff/1/right' \
 --header 'Content-Type: application/json' \
@@ -181,8 +193,9 @@ The response body will be like that:
 ```
 
 ### GET {data-host}/v1/diff/{id}
+Behavior: It returns the persisted JSON entity.
 
-Example: http://localhost:8082/v1/diff/1
+Request:
 ```
 curl --location --request GET 'localhost:8082/v1/diff/1' \
 --header 'traceId: test-thiago-teixeira-01'
