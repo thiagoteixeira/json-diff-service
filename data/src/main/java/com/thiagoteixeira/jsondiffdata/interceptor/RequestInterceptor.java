@@ -8,7 +8,6 @@ import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
  * A request intercept instance to get the @{@link ApiHeaders#TRACE_ID_HEADER} from request and put it
@@ -31,6 +30,7 @@ public class RequestInterceptor implements HandlerInterceptor {
    * @param handler The handler instance
    * @return Return {@code true} then the interception was successful, otherwise {@code false}   *
    */
+  @Override
   public boolean preHandle(final HttpServletRequest request, final HttpServletResponse response, final Object handler) {
       logger.info("Putting traceId header into MDC");
       final var value = request.getHeader(ApiHeaders.TRACE_ID_HEADER);
