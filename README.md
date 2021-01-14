@@ -13,6 +13,9 @@ JSON Base64 comparator
 [![sonar-bugs][sonar-bugs]][sonar-url]
 [![sonar-vulnerabilities][sonar-vulnerabilities]][sonar-url]
 
+## System Architecture
+### Diagram
+![Alt text](static/images/architecture.png "Xptodasdjasijdi")
 
 ## FACADE - API Resources
 
@@ -90,21 +93,21 @@ Found ||
 ##### 'pt' (PORTUGUESE)
 | When      | Message in response body will be | HTTP Status Code | Note |
 |:--------------|:----------------------------------|----------------------|-----|
-| `Sides are equal`      |    `Os conte\u00FAdos JSON s\u00E3o iguais\u0021` |200 OK||
-| `Sides have not the same size`      |    `Os conteúdos JSON n\u00E3o possuem o mesmo tamanho\u0021` |200 OK||
-| `Sides have the same size, but different bytes`  |    `Os conte\u00FAdos JSON possuem o mesmo tamanho, mas os deslocamentos s\u00E3o diferentes: 19` | 200 OK | In this case, 19 is the only different position|
+| `Sides are equal`      |    `Os conteúdos JSON são iguais!` |200 OK||
+| `Sides have not the same size`      |    `Os conteúdos JSON não possuem o mesmo tamanho!` |200 OK||
+| `Sides have the same size, but different bytes`  |    `Os conteúdos JSON possuem o mesmo tamanho, mas os deslocamentos são diferentes: 19` | 200 OK | In this case, 19 is the only different position|
 | The {id} path variable is not found in json-diff-data microservice |  | 404 Not Found ||
 ##### 'es' (SPANISH)
 | When      | Message in response body will be | HTTP Status Code | Note |
 |:--------------|:----------------------------------|----------------------|-----|
-| `Sides are equal`      |    `\u00A1Los contenidos JSON son iguales\u0021` |200 OK||
-| `Sides have not the same size`      |    `\u00A1Los contenidos JSON no tienen el mismo tama\u00F1o\u0021` |200 OK||
-| `Sides have the same size, but different bytes`  |    `El contenidos JSON tiene el mismo tama\u00F1o, pero las compensaciones son diferentes\u003A 19` | 200 OK | In this case, 19 is the only different position|
+| `Sides are equal`      |    `¡Los contenidos JSON son iguales!` |200 OK||
+| `Sides have not the same size`      |    `¡Los contenidos JSON no tienen el mismo tamaño!` |200 OK||
+| `Sides have the same size, but different bytes`  |    `El contenidos JSON tiene el mismo tamaño, pero las compensaciones son diferentes: 19` | 200 OK | In this case, 19 is the only different position|
 | The {id} path variable is not found in json-diff-data microservice |  | 404 Not Found ||
 
 
-[sonar-url]:https://sonarcloud.io/dashboard?id=com.thiagojavabr%3Ajson-diff-service&nocache
-[sonar-quality-gate]: https://sonarcloud.io/api/project_badges/measure?project=com.thiagojavabr%3Ajson-diff-service&metric=alert_status
-[sonar-coverage]: https://sonarcloud.io/api/project_badges/measure?project=com.thiagojavabr%3Ajson-diff-service&metric=coverage&cached=1
-[sonar-bugs]: https://sonarcloud.io/api/project_badges/measure?project=com.thiagojavabr%3Ajson-diff-service&metric=bugs
-[sonar-vulnerabilities]: https://sonarcloud.io/api/project_badges/measure?project=com.thiagojavabr%3Ajson-diff-service&metric=vulnerabilities
+[sonar-url]:https://sonarcloud.io/dashboard?id=com.thiagoteixeira%3Ajson-diff-service-parent&nocache
+[sonar-quality-gate]: https://sonarcloud.io/api/project_badges/measure?project=com.thiagoteixeira%3Ajson-diff-service-parent&metric=alert_status
+[sonar-coverage]: https://sonarcloud.io/api/project_badges/measure?project=com.thiagoteixeira%3Ajson-diff-service-parent&metric=coverage&cached=1
+[sonar-bugs]: https://sonarcloud.io/api/project_badges/measure?project=com.thiagoteixeira%3Ajson-diff-service-parent&metric=bugs
+[sonar-vulnerabilities]: https://sonarcloud.io/api/project_badges/measure?project=com.thiagoteixeira%3Ajson-diff-service-parent&metric=vulnerabilities
