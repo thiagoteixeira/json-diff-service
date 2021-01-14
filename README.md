@@ -83,7 +83,7 @@ Behavior: It calls the diff-business-service to get the comparison from both sid
 
 Request:
 ```
-curl --location --request GET 'localhost:8080/v1/diff/22' \
+curl --location --request GET 'localhost:8080/v1/diff/1' \
 --header 'traceId: test-thiago-teixeira-01' \
 --header 'Accept-Language: en'
 ```
@@ -223,6 +223,7 @@ Response body:
 - [all] Create E2E Tests
 - [facade-service] Add Exception handler using a ControllerAdvice implementation
 - [business-service] Add Exception handler using a ControllerAdvice implementation
+- [all] Add Swagger API documentation to all endpoints
 - [all] Generate Docker images for all modules during build execution
 - [data-service] Add validation to accept request body only with Base64 encrypted value
 - [facade-service] Add validation to accept request body only with Base64 encrypted value
