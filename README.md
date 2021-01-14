@@ -209,6 +209,16 @@ Response body:
 }
 ```
 
+## Backlog
+### Done
+- [data-service] Create endpoints to save JSON entity sides ([#1][i1])
+- [business-service] Create endpoints to compare JSON entity sides ([#2][i2])
+- [facade-service] Create endpoints to save and compare JSON entity sides ([#3][i3])
+
+### Improvements (Nice to haves)
+- [all] Add jacoco plugin to generate report for SonarCloud analyzes([#9][i9])
+
+
 [sonar-url]:https://sonarcloud.io/dashboard?id=com.thiagoteixeira%3Ajson-diff-service-parent&nocache
 [sonar-quality-gate]: https://sonarcloud.io/api/project_badges/measure?project=com.thiagoteixeira%3Ajson-diff-service-parent&metric=alert_status
 [sonar-coverage]: https://sonarcloud.io/api/project_badges/measure?project=com.thiagoteixeira%3Ajson-diff-service-parent&metric=coverage&cached=1
