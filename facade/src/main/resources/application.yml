@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: json-diff-app-service
+  messages:
+    encoding: UTF-8
+
+microservices:
+  business:
+    uri: http://localhost:8081/v1/diff/{id}
+  data:
+    uri: http://localhost:8082/v1/jsondata/{id}
+
+rest:
+  http:
+    maxConnections: 100
+    maxConnPerRoute: 100
+    readTimeout: 60000
+    connectionTimeout: 1000

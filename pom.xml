@@ -28,6 +28,7 @@
     <modules>
         <module>data</module>
         <module>business</module>
+        <module>facade</module>
     </modules>
 
     <dependencyManagement>
