@@ -15,7 +15,7 @@ JSON Base64 comparator
 
 ## System Architecture
 ### Diagram
-![System Architecture](static/images/architecture.png "System Architecture diagram")
+![System Architecture Diagram image](static/images/architecture.png "System Architecture diagram")
 ### Diff Data Service
 Represents the microservice that will handle the JSON entity's persistence.
 ### Diff Business Service
