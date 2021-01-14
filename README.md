@@ -220,6 +220,7 @@ Response body:
 ### Improvements (Nice to haves)
 - ~~[all] Add jacoco plugin to generate report for SonarCloud analyzes([#9][i9])~~
 - ~~[all] Add Tracis CI and SonarCloud integration with repository([#7][i7])~~
+- ~~[facade-service] Add message i18n in English, Portuguese and Spanish.([#3][i3])~~
 - [all] Create E2E Tests
 - [facade-service] Add Exception handler using a ControllerAdvice implementation
 - [business-service] Add Exception handler using a ControllerAdvice implementation
@@ -227,7 +228,6 @@ Response body:
 - [all] Generate Docker images for all modules during build execution
 - [data-service] Add validation to accept request body only with Base64 encrypted value
 - [facade-service] Add validation to accept request body only with Base64 encrypted value
-- [data-service] Create Data tier API v2 with idempotent endpoints
 - [all] Add Spring Cloud integration (Eureka, Config service)
 - [all] Create performance test script in Gatling for all service layers 
 - [facade-service] Add Circuit Breaker
