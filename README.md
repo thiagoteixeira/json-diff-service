@@ -96,8 +96,8 @@ Note: result when both sides are equal!
 | `Sides are equal`      |    `The JSON contents are equal!` |200 OK||
 | `Sides have not the same size`      |    `The JSON contents have not the same size!` |200 OK||
 | `Sides have the same size, but different bytes`  |    `The JSON contents have the same size, but offsets are different: 19` | 200 OK | In this case, 19 is the only different position|
-| The {id} path variable is not found in json-diff-data microservice |  | 404 Not 
-Found ||
+| The {id} path variable is not found in json-diff-data microservice |  | 404 Not Found ||
+
 ##### 'pt' (PORTUGUESE)
 | When      | Message in response body will be | HTTP Status Code | Note |
 |:--------------|:----------------------------------|----------------------|-----|
