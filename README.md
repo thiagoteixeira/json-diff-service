@@ -224,3 +224,10 @@ Response body:
 [sonar-coverage]: https://sonarcloud.io/api/project_badges/measure?project=com.thiagoteixeira%3Ajson-diff-service-parent&metric=coverage&cached=1
 [sonar-bugs]: https://sonarcloud.io/api/project_badges/measure?project=com.thiagoteixeira%3Ajson-diff-service-parent&metric=bugs
 [sonar-vulnerabilities]: https://sonarcloud.io/api/project_badges/measure?project=com.thiagoteixeira%3Ajson-diff-service-parent&metric=vulnerabilities
+
+
+<!-- GitHub issues -->
+[i1]: https://github.com/thiagoteixeira/json-diff-service/issues/1
+[i2]: https://github.com/thiagoteixeira/json-diff-service/issues/2
+[i3]: https://github.com/thiagoteixeira/json-diff-service/issues/3
+[i9]: https://github.com/thiagoteixeira/json-diff-service/issues/9
