@@ -231,11 +231,47 @@ Response body:
 - [all] Create performance test script in Gatling for all service layers 
 - [facade-service] Add Circuit Breaker
 - [business-service] Add Circuit Breaker
-- [facade-service] Add Circuit Breaker
 - [all] Provide metrics actuator endpoint for Prometheus
 - [business-service] Use Spring Relaxed Binding to inject microservice properties
 - [facade-service] Use Spring Relaxed Binding to inject microservice properties
 - [all] Create HELM k8s templates including all modules
+
+## Instructions to run the project locally
+### Requirements
+- [Docker](https://www.docker.com/)
+- [Docker Compose](https://docs.docker.com/compose/install/)
+- [JDK 15](https://openjdk.java.net/projects/jdk/15/) or higher
+- [Maven 3.x](https://maven.apache.org/download.cgi) or higher
+### Step by to start the applications
+1. Start *MongoDB* container using the [docker-compose.yml](docker-compose.yml)
+```
+docker-compose up -d
+```
+2. Start *Diff Data Service* module
+```
+cd data
+
+mvn spring-boot:run
+
+```
+3. Start *Diff Business Service* module
+```
+cd business
+
+mvn spring-boot:run
+
+```
+3. Start *Diff Facade Service* module
+```
+cd facade
+
+mvn spring-boot:run
+
+```
+Done. Now the applications will be ready to be used in the following HTTP ports:
+- facade: 8080
+- business: 8081
+- data: 8082
 
 [sonar-url]:https://sonarcloud.io/dashboard?id=com.thiagoteixeira%3Ajson-diff-service-parent&nocache
 [sonar-quality-gate]: https://sonarcloud.io/api/project_badges/measure?project=com.thiagoteixeira%3Ajson-diff-service-parent&metric=alert_status
