@@ -20,7 +20,7 @@ JSON Base64 comparator
 Represents the microservice that will handle the JSON entity's persistence.
 ### Diff Business Service
 Represents the microservice that will implement all business rules to execute the JSON sides data comparison, it will handle HTTP calls to diff-data-service to retrieve the JSON entity before the data comparison.
-### Diff Facade Service
+### [Diff Facade Service](#diff-facade-service---api-resources)
 This represents a facade microservice that will orchestrate calls to the Business and Data tier microservices to insert, update or compare data from their respective entities.
 
 <br/>
