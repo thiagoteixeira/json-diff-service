@@ -34,6 +34,7 @@ public class RequestInterceptor implements HandlerInterceptor {
    * @param handler The handler instance
    * @return Return {@code true} then the interception was successful, otherwise {@code false}   *
    */
+  @Override
   public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
     logger.info("Putting traceId header into MDC");
     final var value = request.getHeader(ApiHeaders.TRACE_ID_HEADER);

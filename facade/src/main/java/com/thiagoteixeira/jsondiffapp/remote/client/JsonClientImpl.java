@@ -5,7 +5,6 @@ import com.thiagoteixeira.jsondiffapp.remote.entity.DataRequest;
 import com.thiagoteixeira.jsondiffapp.remote.entity.DataResponse;
 import com.thiagoteixeira.jsondiffapp.util.ApiHeaders;
 import java.util.Optional;
-import jdk.jfr.ContentType;
 import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -84,10 +83,9 @@ public class JsonClientImpl implements JsonClient {
    * @param <T> The generic argument given a received type
    * @return A ResponseEntity encapsulation an instance of the received type argument
    */
-  private <T> ResponseEntity<T> execute(final String uri, final HttpMethod method, final HttpEntity entity, final Class<T> responseType, final Object... variables) {
-    var result  = this.template
+  private <T> ResponseEntity<T> execute(final String uri, final HttpMethod method, final HttpEntity<?> entity, final Class<T> responseType, final Object... variables) {
+    return this.template
         .exchange(uri, method, entity, responseType, variables);
-    return result;
   }
 
 }
