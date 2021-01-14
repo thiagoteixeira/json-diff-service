@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  *
  * @author thiagoteixeira
  */
-@RequestMapping("/v1/jsondata/{id:[0-9]+}")
+@RequestMapping("/v1/diff/{id:[0-9]+}")
 public interface JsonResource {
 
     /**
@@ -28,15 +28,33 @@ public interface JsonResource {
      * This method executes a upsert operation, in other words, insert and update.
      *
      * @param id The {@link JsonEntity} unique identifier.
-     * @param body  The {@link JsonRequest} have the side and value that will be record in the database.
+     * @param body  The {@link JsonRequest} have the left value that will be record in the database.
      * @return The persisted {@link JsonEntity} instance encapsulated into a {@link ResponseEntity}
      */
     @PostMapping(
+            value = "/left",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     @ResponseStatus(HttpStatus.CREATED)
-    ResponseEntity<JsonEntity> save(@PathVariable Long id, @Valid @RequestBody JsonRequest body);
+    ResponseEntity<JsonEntity> saveLeft(@PathVariable Long id, @Valid @RequestBody JsonRequest body);
+
+    /**
+     * It allows us to receive a JSON Base64 entity right value via HTTP request to be record later into some
+     * {@link JsonEntity} instances.
+     * This method executes a upsert operation, in other words, insert and update.
+     *
+     * @param id The {@link JsonEntity} unique identifier.
+     * @param body  The {@link JsonRequest} have the right value that will be record in the database.
+     * @return The persisted {@link JsonEntity} instance encapsulated into a {@link ResponseEntity}
+     */
+    @PostMapping(
+        value = "/right",
+        consumes = MediaType.APPLICATION_JSON_VALUE,
+        produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    @ResponseStatus(HttpStatus.CREATED)
+    ResponseEntity<JsonEntity> saveRight(@PathVariable Long id, @Valid @RequestBody JsonRequest body);
 
     /**
      * It allows us to retrieve some {@link JsonEntity} instance base on the unique identifier.

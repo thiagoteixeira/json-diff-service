@@ -20,8 +20,10 @@ import org.slf4j.MDC;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.util.ReflectionTestUtils;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 /**
@@ -71,15 +73,36 @@ class JsonDataClientImplTest {
   }
 
   @Test
-  void findNotFound() {
+  void findNotFoundFromDataNotFoundResponse() {
     final var traceIdHeader = UUID.randomUUID().toString();
     MDC.put(ApiHeaders.TRACE_ID_HEADER, traceIdHeader);
 
     final var headers = new HttpHeaders();
     headers.set(ApiHeaders.TRACE_ID_HEADER, traceIdHeader);
     final var requestEntity = new HttpEntity<>(null, headers);
-    when(this.restTemplate.exchange(DATA_SERVICE_URI, HttpMethod.GET, requestEntity, JsonDataResponse.class, 1L)).thenReturn(
-        ResponseEntity.notFound().build());
+    when(this.restTemplate.exchange(DATA_SERVICE_URI, HttpMethod.GET, requestEntity, JsonDataResponse.class, 1L)).thenThrow(
+        new HttpClientErrorException(
+            HttpStatus.NOT_FOUND));
+
+    final Optional<JsonDataResponse> response = this.client.find(1l);
+
+    assertTrue(response.isEmpty());
+    verify(this.restTemplate, times(1)).exchange(DATA_SERVICE_URI, HttpMethod.GET, requestEntity, JsonDataResponse.class, 1L);
+
+    MDC.clear();
+  }
+
+  @Test
+  void findNotFoundFromDataInternalServerErrorResponse() {
+    final var traceIdHeader = UUID.randomUUID().toString();
+    MDC.put(ApiHeaders.TRACE_ID_HEADER, traceIdHeader);
+
+    final var headers = new HttpHeaders();
+    headers.set(ApiHeaders.TRACE_ID_HEADER, traceIdHeader);
+    final var requestEntity = new HttpEntity<>(null, headers);
+    when(this.restTemplate.exchange(DATA_SERVICE_URI, HttpMethod.GET, requestEntity, JsonDataResponse.class, 1L)).thenThrow(
+        new HttpClientErrorException(
+            HttpStatus.INTERNAL_SERVER_ERROR));
 
     final Optional<JsonDataResponse> response = this.client.find(1l);
 

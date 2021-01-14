@@ -1,8 +1,5 @@
 package com.thiagoteixeira.jsondiffdata.dto;
 
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
-
 /**
  * Data transfer object used to transfer the {@link com.thiagoteixeira.jsondiffdata.vo.JsonRequest} data information
  * from {@link com.thiagoteixeira.jsondiffdata.resource.JsonResourceImpl} to
@@ -41,34 +38,6 @@ public class JsonDto {
 
   public String getValue() {
     return value;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-
-    JsonDto jsonDto = (JsonDto) o;
-
-    return new EqualsBuilder()
-        .append(id, jsonDto.id)
-        .append(side, jsonDto.side)
-        .append(value, jsonDto.value)
-        .isEquals();
-  }
-
-  @Override
-  public int hashCode() {
-    return new HashCodeBuilder(17, 37)
-        .append(id)
-        .append(side)
-        .append(value)
-        .toHashCode();
   }
 
   public static JsonDtoBuilder builder(){

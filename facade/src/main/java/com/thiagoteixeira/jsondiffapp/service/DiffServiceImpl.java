@@ -45,7 +45,7 @@ public class DiffServiceImpl implements DiffService {
   public DataResponse save(final JsonDto data) {
     logger.info("Calling json-diff-data service to save '{}' JSON entity side", data);
     final var savedData = this.client
-        .create(data.getId(), new DataRequest(data.getSide(), data.getValue()));
+        .save(data.getId(), data.getSide(), new DataRequest(data.getValue()));
     if(savedData.isPresent()) {
       logger.info("The JSON entity '{}' has been saved successful", data.getId());
       return savedData.get();

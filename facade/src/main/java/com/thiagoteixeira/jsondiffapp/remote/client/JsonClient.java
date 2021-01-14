@@ -1,5 +1,6 @@
 package com.thiagoteixeira.jsondiffapp.remote.client;
 
+import com.thiagoteixeira.jsondiffapp.dto.JsonSide;
 import com.thiagoteixeira.jsondiffapp.remote.entity.BusinessResponse;
 import com.thiagoteixeira.jsondiffapp.remote.entity.DataRequest;
 import com.thiagoteixeira.jsondiffapp.remote.entity.DataResponse;
@@ -20,7 +21,7 @@ public interface JsonClient {
    * @param request The {@link DataRequest} have the side and value that will be record in the database.
    * @return The persisted {@link DataResponse} instance encapsulated into a {@link ResponseEntity}
    */
-  Optional<DataResponse> create(final long id, final DataRequest request);
+  Optional<DataResponse> save(final long id, final JsonSide side, final DataRequest request);
 
   /**
    * It allow us to retrieve the bytes comparison given a JSON entity via json-diff-business microservice.

@@ -84,15 +84,15 @@ class DiffResourceImplTest {
     expectedResponse.setLeft("foo");
     expectedResponse.setRight(null);
 
-    final var dto = new DataRequest(JsonSide.LEFT, "foo");
-    given(this.client.create(1L, dto)).willReturn(Optional.of(expectedResponse));
+    final var dto = new DataRequest("foo");
+    given(this.client.save(1L, JsonSide.LEFT, dto)).willReturn(Optional.of(expectedResponse));
 
     // when/then
     final MvcResult result = this.mvc.perform(
         post(SAVE_LEFT_API_PATH, 1L)
             .header(ApiHeaders.TRACE_ID_HEADER, UUID.randomUUID().toString())
         .contentType(MediaType.APPLICATION_JSON_VALUE)
-        .content(this.objectMapper.writeValueAsString(new DataRequest(JsonSide.LEFT, "foo")))
+        .content(this.objectMapper.writeValueAsString(new DataRequest("foo")))
     )
         .andExpect(status().is(HttpStatus.CREATED.value()))
         .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
@@ -101,7 +101,7 @@ class DiffResourceImplTest {
 
     verify(this.interceptor, times(1)).preHandle(any(),any(),any());
     verify(this.interceptor, times(1)).afterCompletion(any(),any(),any(),any());
-    verify(this.client, times(1)).create(1L, dto);
+    verify(this.client, times(1)).save(1L, JsonSide.LEFT, dto);
   }
 
   @Test
@@ -112,15 +112,15 @@ class DiffResourceImplTest {
     expectedResponse.setLeft(null);
     expectedResponse.setRight("bar");
 
-    final var dto = new DataRequest(JsonSide.RIGHT, "bar");
-    given(this.client.create(1L, dto)).willReturn(Optional.of(expectedResponse));
+    final var dto = new DataRequest("bar");
+    given(this.client.save(1L, JsonSide.RIGHT,dto)).willReturn(Optional.of(expectedResponse));
 
     // when/then
     final MvcResult result = this.mvc.perform(
         post(SAVE_RIGHT_API_PATH, 1L)
             .header(ApiHeaders.TRACE_ID_HEADER, UUID.randomUUID().toString())
             .contentType(MediaType.APPLICATION_JSON_VALUE)
-            .content(this.objectMapper.writeValueAsString(new DataRequest(JsonSide.RIGHT, "bar")))
+            .content(this.objectMapper.writeValueAsString(new DataRequest("bar")))
     )
         .andExpect(status().is(HttpStatus.CREATED.value()))
         .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
@@ -129,7 +129,7 @@ class DiffResourceImplTest {
 
     verify(this.interceptor, times(1)).preHandle(any(),any(),any());
     verify(this.interceptor, times(1)).afterCompletion(any(),any(),any(),any());
-    verify(this.client, times(1)).create(1L, dto);
+    verify(this.client, times(1)).save(1L, JsonSide.RIGHT, dto);
   }
 
   @Test
@@ -202,6 +202,25 @@ class DiffResourceImplTest {
   void getDiffForEqualSizeAndDifferentContentWithSpanishLanguage() throws Exception {
     var tmp = mockBusinessResponse(BUSINESS_EQUAL_SIZE_DIFF_CONTENT_CODE, "0,2");
     getDiff(tmp, "es", new DiffResponse("El contenidos JSON tiene el mismo tamaño, pero las compensaciones son diferentes: 0,2"));
+  }
+
+  @Test
+  void getDiffNotFound() throws Exception {
+    // given
+    given(this.client.diff(1L)).willReturn(Optional.empty());
+
+    // when/then
+    final MvcResult result = this.mvc.perform(
+        get(DIFF_API_PATH, 1L)
+            .header(ApiHeaders.TRACE_ID_HEADER, UUID.randomUUID().toString())
+    )
+        .andExpect(status().is(HttpStatus.NOT_FOUND.value()))
+        .andExpect(content().string(Strings.EMPTY))
+        .andReturn();
+
+    verify(this.interceptor, times(1)).preHandle(any(),any(),any());
+    verify(this.interceptor, times(1)).afterCompletion(any(),any(),any(),any());
+    verify(this.client, times(1)).diff(1L);
   }
 
   private void getDiff(final BusinessResponse businessResponse, final String acceptedLanguage, final DiffResponse expectedMessage) throws Exception {

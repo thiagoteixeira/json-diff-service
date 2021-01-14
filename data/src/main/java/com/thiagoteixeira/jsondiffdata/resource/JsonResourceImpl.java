@@ -2,6 +2,7 @@ package com.thiagoteixeira.jsondiffdata.resource;
 
 import com.thiagoteixeira.jsondiffdata.domain.JsonEntity;
 import com.thiagoteixeira.jsondiffdata.dto.JsonDto;
+import com.thiagoteixeira.jsondiffdata.dto.JsonSide;
 import com.thiagoteixeira.jsondiffdata.service.JsonService;
 import com.thiagoteixeira.jsondiffdata.vo.JsonRequest;
 import java.util.Optional;
@@ -33,19 +34,38 @@ public class JsonResourceImpl implements JsonResource {
     /**
      * {@inheritDoc}
      *
-     * @see JsonResource#save(Long, JsonRequest)
+     * @see JsonResource#saveLeft(Long, JsonRequest)
      */
     @Override
-    public ResponseEntity<JsonEntity> save(final Long id, final JsonRequest body) {
-        logger.info("Receiving '{}' for JSON id '{}'", body, id);
+    public ResponseEntity<JsonEntity> saveLeft(final Long id, final JsonRequest body) {
+        logger.info("Receiving the left side value '{}' for JSON id '{}'", body, id);
         final var dto = JsonDto
             .builder()
             .withId(id)
-            .withSide(body.getSide())
+            .withSide(JsonSide.LEFT)
             .withValue(body.getValue())
             .build();
         final JsonEntity result = this.service.save(dto);
-        logger.info("JSON id '{}' saved.",id);
+        logger.info("The left side value has been saved into JSON id '{}'", id);
+        return ResponseEntity.status(HttpStatus.CREATED).body(result);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @see JsonResource#saveRight(Long, JsonRequest)
+     */
+    @Override
+    public ResponseEntity<JsonEntity> saveRight(final Long id, final JsonRequest body) {
+        logger.info("Receiving the right side value '{}' for JSON id '{}'", body, id);
+        final var dto = JsonDto
+            .builder()
+            .withId(id)
+            .withSide(JsonSide.RIGHT)
+            .withValue(body.getValue())
+            .build();
+        final JsonEntity result = this.service.save(dto);
+        logger.info("The right side value has been saved into JSON id '{}'", id);
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
 

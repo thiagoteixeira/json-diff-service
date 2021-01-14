@@ -63,19 +63,43 @@ class JsonResourceImplIntegrationTest {
   }
 
   @Test
-  void saveSuccessfully() throws Exception {
+  void saveLeftSideSuccessfully() throws Exception {
     // given
-    final JsonEntity expected = new JsonEntity(1L, "foo", "left");
+    final JsonEntity expected = new JsonEntity(1L, "foo", "bar");
     given(this.respository.findById(1L)).willReturn(Optional.of(expected));
     given(this.respository.save(expected)).willReturn(expected);
 
     final var request = new JsonRequest();
-    request.setSide(JsonSide.RIGHT);
     request.setValue("foo");
 
     // when/then
     this.mvc.perform(
-        post("/v1/jsondata/{id}", 1L)
+        post("/v1/diff/{id}/left", 1L)
+            .contentType(MediaType.APPLICATION_JSON_VALUE)
+            .header(ApiHeaders.TRACE_ID_HEADER, "123")
+            .content(this.objectMapper.writeValueAsBytes(request)))
+        .andExpect(status().is(HttpStatus.CREATED.value()))
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+        .andExpect(content().string(this.objectMapper.writeValueAsString(expected)));
+
+    verify(this.interceptor, times(1)).preHandle(any(),any(),any());
+    verify(this.interceptor, times(1)).afterCompletion(any(),any(),any(),any());
+    verify(this.respository, times(1)).save(eq(expected));
+  }
+
+  @Test
+  void saveRightSideSuccessfully() throws Exception {
+    // given
+    final JsonEntity expected = new JsonEntity(1L, "foo", "bar");
+    given(this.respository.findById(1L)).willReturn(Optional.of(expected));
+    given(this.respository.save(expected)).willReturn(expected);
+
+    final var request = new JsonRequest();
+    request.setValue("bar");
+
+    // when/then
+    this.mvc.perform(
+        post("/v1/diff/{id}/right", 1L)
             .contentType(MediaType.APPLICATION_JSON_VALUE)
             .header(ApiHeaders.TRACE_ID_HEADER, "123")
             .content(this.objectMapper.writeValueAsBytes(request)))
@@ -96,7 +120,7 @@ class JsonResourceImplIntegrationTest {
 
     // when/then
     this.mvc.perform(
-        get("/v1/jsondata/{id}", 1L)
+        get("/v1/diff/{id}", 1L)
         .contentType(MediaType.APPLICATION_JSON_VALUE)
         .header(ApiHeaders.TRACE_ID_HEADER, "123"))
         .andExpect(status().is(HttpStatus.OK.value()))
@@ -115,7 +139,7 @@ class JsonResourceImplIntegrationTest {
 
     // when/then
     this.mvc.perform(
-        get("/v1/jsondata/{id}", 1L)
+        get("/v1/diff/{id}", 1L)
             .contentType(MediaType.APPLICATION_JSON_VALUE)
             .header(ApiHeaders.TRACE_ID_HEADER, "123"))
         .andExpect(status().is(HttpStatus.NOT_FOUND.value()))

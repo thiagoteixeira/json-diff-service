@@ -3,6 +3,7 @@ package com.thiagoteixeira.jsondiffapp.service;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.times;
@@ -11,6 +12,7 @@ import static org.mockito.Mockito.when;
 
 import com.thiagoteixeira.jsondiffapp.dto.JsonDto;
 import com.thiagoteixeira.jsondiffapp.dto.JsonSide;
+import com.thiagoteixeira.jsondiffapp.exception.FacadeException;
 import com.thiagoteixeira.jsondiffapp.remote.client.JsonClientImpl;
 import com.thiagoteixeira.jsondiffapp.remote.entity.BusinessResponse;
 import com.thiagoteixeira.jsondiffapp.remote.entity.DataRequest;
@@ -44,9 +46,9 @@ class DiffServiceImplTest {
   private DiffServiceImpl service;
 
   @Test
-  void createSuccessfully() {
+  void saveSuccessfully() {
     final var expected = new DataResponse();
-    when(this.client.create(1L, new DataRequest(JsonSide.LEFT, "foo"))).thenReturn(Optional.of(expected));
+    when(this.client.save(1L, JsonSide.LEFT, new DataRequest("foo"))).thenReturn(Optional.of(expected));
 
     final var dto = JsonDto.builder()
         .withId(1L)
@@ -57,6 +59,19 @@ class DiffServiceImplTest {
     final var result = this.service.save(dto);
     assertNotNull(result);
     assertSame(expected, result);
+  }
+
+  @Test
+  void saveUnsuccessfully() {
+    when(this.client.save(1L, JsonSide.LEFT, new DataRequest("foo"))).thenReturn(Optional.empty());
+
+    final var dto = JsonDto.builder()
+        .withId(1L)
+        .withSide(JsonSide.LEFT)
+        .withValue("foo")
+        .build();
+
+    assertThrows(FacadeException.class, () -> this.service.save(dto));
   }
 
   @Test

@@ -8,7 +8,7 @@ microservices:
   business:
     uri: http://localhost:8081/v1/diff/{id}
   data:
-    uri: http://localhost:8082/v1/jsondata/{id}
+    uri: http://localhost:8082/v1/diff/{id}
 
 rest:
   http:

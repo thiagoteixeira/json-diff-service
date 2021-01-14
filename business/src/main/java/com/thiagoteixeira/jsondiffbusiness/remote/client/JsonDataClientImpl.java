@@ -11,7 +11,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 /**
@@ -46,9 +48,18 @@ public class JsonDataClientImpl implements JsonDataClient {
     final var headers = new HttpHeaders();
     headers.set(ApiHeaders.TRACE_ID_HEADER, MDC.get(ApiHeaders.TRACE_ID_HEADER));
     final var requestEntity = new HttpEntity<>(null, headers);
-    var result  = this.template.exchange(this.uri, HttpMethod.GET, requestEntity, JsonDataResponse.class, id);
+    try {
+      var result  = this.template.exchange(this.uri, HttpMethod.GET, requestEntity, JsonDataResponse.class, id);
 
-    logger.info("End retrieving JSON entity id '{}' in json-diff-data microservice", id);
-    return Optional.ofNullable(result.getBody());
+      logger.info("End retrieving JSON entity id '{}' in json-diff-data microservice", id);
+      return Optional.of(result.getBody());
+    } catch (final HttpClientErrorException e){
+      if(HttpStatus.NOT_FOUND.equals(e.getStatusCode())){
+        logger.info("End retrieving JSON entity id '{}' in json-diff-data microservice but it was not found", id);
+        return Optional.empty();
+      }
+      logger.error(e.getMessage(), e);
+    }
+    return Optional.empty();
   }
 }

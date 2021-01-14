@@ -25,4 +25,5 @@ public class MvcConfig implements WebMvcConfigurer {
   public void addInterceptors(final InterceptorRegistry registry) {
     registry.addInterceptor(this.requestInterceptor);
   }
+
 }

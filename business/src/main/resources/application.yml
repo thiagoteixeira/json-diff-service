@@ -7,7 +7,7 @@ spring:
 
 microservices:
   data:
-    uri: http://localhost:8082/v1/jsondata/{id}
+    uri: http://localhost:8082/v1/diff/{id}
 
 rest:
   http:

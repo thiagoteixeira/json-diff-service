@@ -16,7 +16,7 @@ JSON Base64 comparator
 ## System Architecture
 ### Diagram
 ![System Architecture Diagram image](static/images/architecture.png "System Architecture diagram")
-### Diff Data Service
+### [Diff Data Service](#diff-data-service---api-resources)
 Represents the microservice that will handle the JSON entity's persistence.
 ### Diff Business Service
 Represents the microservice that will implement all business rules to execute the JSON sides data comparison, it will handle HTTP calls to diff-data-service to retrieve the JSON entity before the data comparison.
@@ -82,11 +82,11 @@ curl --location --request GET 'localhost:8080/v1/diff/22' \
 --header 'Accept-Language: en'
 ```
 Response body:
-
-    {
-        "message": "The JSON contents are equal!"
-    }
-
+```
+{
+    "message": "The JSON contents are equal!"
+}
+```
 Note: result when both sides are equal! 
 
 #### Possible message results when 'Accept-Language' header is:
@@ -113,6 +113,88 @@ Found ||
 | `Sides have the same size, but different bytes`  |    `El contenidos JSON tiene el mismo tamaño, pero las compensaciones son diferentes: 19` | 200 OK | In this case, 19 is the only different position|
 | The {id} path variable is not found in json-diff-data microservice |  | 404 Not Found ||
 
+## Diff Business Service - API Resources
+  - [GET /v1/diff/{id}](#get-business-hostv1diffid)
+
+### GET {business-host}/v1/diff/{id}
+
+Example: http://localhost:8081/v1/diff/1
+```
+curl --location --request GET 'localhost:8081/v1/diff/1' \
+--header 'traceId: test-thiago-teixeira-01'
+```
+Response body:
+```
+{
+    "id": 1,
+    "left": "eyAibmFtZSI6IlRoaWFnbyBUZWl4ZWlyYSIgfQ==",
+    "right": "eyAibmFtZSI6IlRoaWFnbyBUZWl4ZWlyYSIgfQ=="
+}
+```
+
+## Diff Data Service - API Resources
+
+  - [POST /v1/diff/{id}/left](#post-data-hostv1diffidleft)
+  - [POST /v1/diff/{id}/right](#post-data-hostv1diffidright)
+  - [GET /v1/diff/{id}](#get-data-hostv1diffid)
+
+### POST {data-host}/v1/diff/{id}/left
+
+Example: http://localhost:8082/v1/diff/1/left
+```
+curl --location --request POST 'localhost:8082/v1/diff/1/left' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  "value":"eyAibmFtZSI6IlRoaWFnbyBUZWl4ZWlyYSIgfQ=="
+}'
+```
+Note: Request body value represents the JSON base64 encoded binary data, the real JSON value is `{ "name":"Thiago Teixeira" }`
+
+The response body will be like that:
+```
+{
+    "id": 1,
+    "left": "eyAibmFtZSI6IlRoaWFnbyBUZWl4ZWlyYSIgfQ==",
+    "right": null
+}
+```
+
+### POST {data-host}/v1/diff/{id}/right
+
+Example: http://localhost:8082/v1/diff/1/right
+```
+curl --location --request POST 'localhost:8082/v1/diff/1/right' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  "value":"eyAibmFtZSI6IlRoaWFnbyBUZWl4ZWlyYSIgfQ=="
+}'
+```
+Note: Request body value represents the JSON base64 encoded binary data, the real JSON value is `{ "name":"Thiago Teixeira" }`
+
+The response body will be like that:
+```
+{
+    "id": 1,
+    "left": "eyAibmFtZSI6IlRoaWFnbyBUZWl4ZWlyYSIgfQ==",
+    "right": "eyAibmFtZSI6IlRoaWFnbyBUZWl4ZWlyYSIgfQ=="
+}
+```
+
+### GET {data-host}/v1/diff/{id}
+
+Example: http://localhost:8082/v1/diff/1
+```
+curl --location --request GET 'localhost:8082/v1/diff/1' \
+--header 'traceId: test-thiago-teixeira-01'
+```
+Response body:
+```
+{
+    "id": 1,
+    "left": "eyAibmFtZSI6IlRoaWFnbyBUZWl4ZWlyYSIgfQ==",
+    "right": "eyAibmFtZSI6IlRoaWFnbyBUZWl4ZWlyYSIgfQ=="
+}
+```
 
 [sonar-url]:https://sonarcloud.io/dashboard?id=com.thiagoteixeira%3Ajson-diff-service-parent&nocache
 [sonar-quality-gate]: https://sonarcloud.io/api/project_badges/measure?project=com.thiagoteixeira%3Ajson-diff-service-parent&metric=alert_status

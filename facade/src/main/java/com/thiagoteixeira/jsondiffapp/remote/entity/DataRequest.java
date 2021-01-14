@@ -1,6 +1,5 @@
 package com.thiagoteixeira.jsondiffapp.remote.entity;
 
-import com.thiagoteixeira.jsondiffapp.dto.JsonSide;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
@@ -12,11 +11,6 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 public class DataRequest {
 
   /**
-   * The JSON side represented by {@link JsonSide}
-   */
-  private JsonSide side;
-
-  /**
    * Binary JSON data
    */
   private String value;
@@ -25,17 +19,8 @@ public class DataRequest {
     super();
   }
 
-  public DataRequest(final JsonSide side, final String value) {
-    this.side = side;
+  public DataRequest(final String value) {
     this.value = value;
-  }
-
-  public JsonSide getSide() {
-    return side;
-  }
-
-  public void setSide(JsonSide side) {
-    this.side = side;
   }
 
   public String getValue() {
@@ -59,7 +44,6 @@ public class DataRequest {
     DataRequest that = (DataRequest) o;
 
     return new EqualsBuilder()
-        .append(side, that.side)
         .append(value, that.value)
         .isEquals();
   }
@@ -67,7 +51,6 @@ public class DataRequest {
   @Override
   public int hashCode() {
     return new HashCodeBuilder(17, 37)
-        .append(side)
         .append(value)
         .toHashCode();
   }
