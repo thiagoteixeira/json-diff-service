@@ -1,8 +1,8 @@
 package com.thiagoteixeira.jsondiffapp.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.times;
@@ -54,9 +54,9 @@ class DiffServiceImplTest {
         .withValue("foo")
         .build();
 
-    final Optional<DataResponse> result = this.service.save(dto);
-    assertTrue(result.isPresent());
-    assertSame(expected, result.get());
+    final var result = this.service.save(dto);
+    assertNotNull(result);
+    assertSame(expected, result);
   }
 
   @Test

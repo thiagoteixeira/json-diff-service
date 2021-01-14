@@ -1,6 +1,8 @@
 package com.thiagoteixeira.jsondiffapp.dto;
 
 import com.thiagoteixeira.jsondiffapp.vo.DiffRequest;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
  * Data transfer object used to transfer the {@link DiffRequest} data information
@@ -66,5 +68,14 @@ public class JsonDto {
 
   public String getValue() {
     return value;
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringBuilder(this, ToStringStyle.NO_CLASS_NAME_STYLE)
+        .append("id", id)
+        .append("side", side)
+        .append("value", value)
+        .toString();
   }
 }

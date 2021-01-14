@@ -21,7 +21,7 @@ public interface DiffService {
    * @param data The {@link JsonDto} representing the received data information.
    * @return The persisted {@link DataResponse} instance encapsulated into an {@link Optional} instance.
    */
-  Optional<DataResponse> save(final JsonDto data);
+  DataResponse save(final JsonDto data);
 
   /**
    * Compares the bytes given a JSON entity via json-diff-business microservice.
